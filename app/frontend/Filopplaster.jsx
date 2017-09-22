@@ -11,6 +11,7 @@ class Filopplaster extends React.Component {
     this.clearBildeFraState = this.clearBildeFraState.bind(this);
     this.state = {
       bilde: '',
+      bildefil: {},
     }
   }
 
@@ -20,13 +21,14 @@ class Filopplaster extends React.Component {
       document.getElementById("preview-image").src = e.target.result;
       this.setState({bilde: e.target.result});
     };
+    this.setState({bildefil: document.getElementById('filopplaster').files[0]});
     reader.readAsDataURL(document.getElementById('filopplaster').files[0]);
   }
 
   lagreBilde (event) {
     event.preventDefault();
     const bildedata = document.getElementById("preview-image").src;
-    const file = document.getElementById('filopplaster').files[0];
+    const file = this.state.bildefil;
 
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -41,7 +43,7 @@ class Filopplaster extends React.Component {
       method: 'post',
       headers: headers,
       body: JSON.stringify(bildeForLagring),
-    });
+    }).then(() => this.props.hentBildeListe());
     this.slettBilde();
   }
 
@@ -51,15 +53,17 @@ class Filopplaster extends React.Component {
   }
 
   clearBildeFraState () {
-    this.setState({ bilde: ''});
+    this.setState({ bilde: '', bildefil: {}});
   }
 
   render() {
     const lagreknappSkalVises = !isEmpty(this.state.bilde);
     const filopplasterSkalVises = isEmpty(this.state.bilde);
 
+    const bildeStyle = isEmpty(this.state.bilde) ? {visibility: 'hidden'} : {visibility: 'visible'}
+
     return (
-        <form>
+        <form className="filopplaster-form">
           <VisibleIf isVisible={filopplasterSkalVises}>
             <div>
               <input id="filopplaster" type="file" multiple accept="image/*" capture="camera" onChange={this.settPreviewBilde}/>
@@ -68,7 +72,7 @@ class Filopplaster extends React.Component {
               </label>
             </div>
           </VisibleIf>
-          <img id="preview-image" alt="your image" width="auto" height="200em"/>
+          <img id="preview-image" alt="your image" style={bildeStyle}/>
           <VisibleIf isVisible={lagreknappSkalVises}>
             <div>
               <button className="knapp" onClick={(event) => this.lagreBilde(event)}>Lagre bilde</button>
