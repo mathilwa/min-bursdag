@@ -1,1 +1,19 @@
-.fa.fa-camera-retro{font-size:20em;text-align:center}form,h1{text-align:center}
+#filopplaster {
+  display: none;
+}
+.fa.fa-camera-retro {
+  font-size: 20em;
+  text-align: center;
+}
+form {
+  text-align: center;
+}
+h1 {
+  text-align: center;
+}
+body {
+  background: url("../img/matta.jpg") no-repeat center center fixed;
+  background-size: cover;
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiL21haW4uYnVuZGxlLmNzcyIsInNvdXJjZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Iiwic291cmNlUm9vdCI6IiJ9*/
