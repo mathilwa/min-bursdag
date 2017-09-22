@@ -24,6 +24,8 @@
     "react-addons-create-fragment": "^15.5.4",
     "react-dom": "^0.14.3",
     "react-linkify": "^0.1.1",
+    "react-qr-reader": "^1.2.1",
+    "react-webcam": "^0.2.0",
     "redux": "^3.1.6",
     "redux-form": "^5.2.4",
     "redux-thunk": "^2.0.1",
