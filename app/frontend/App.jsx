@@ -23,7 +23,6 @@ class App extends React.Component {
   }
 
   hentBildeListe () {
-    console.log('innher?')
     fetch('https://min-bursdag.firebaseio.com/bilder.json').then(response => {
       if (response.ok) {
         response.json().then(bilder => {
