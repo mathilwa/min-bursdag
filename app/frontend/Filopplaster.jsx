@@ -43,7 +43,8 @@ class Filopplaster extends React.Component {
       method: 'post',
       headers: headers,
       body: JSON.stringify(bildeForLagring),
-    }).then(() => this.props.hentBildeListe());
+    });
+    this.props.leggTilBildePaState(bildeForLagring);
     this.slettBilde();
   }
 

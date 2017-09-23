@@ -13,6 +13,7 @@ class App extends React.Component {
     super(props);
     this.hentBildeListe = this.hentBildeListe.bind(this);
     this.byggBildeliste = this.byggBildeliste.bind(this);
+    this.leggTilBildePaState = this.leggTilBildePaState.bind(this);
     this.state = {
       alleBilder: [],
     }
@@ -42,11 +43,17 @@ class App extends React.Component {
     this.setState({alleBilder: alleBilder});
   }
 
+  leggTilBildePaState (bilde) {
+    const alleBilder = this.state.alleBilder;
+    alleBilder.push(bilde);
+    this.setState({ alleBilder: alleBilder})
+  }
+
   render () {
     return (
       <div>
         <h1>MATTA BLIR 30! </h1>
-        <Filopplaster hentBildeListe={this.hentBildeListe}/>
+        <Filopplaster leggTilBildePaState={this.leggTilBildePaState}/>
         <Bilder bilder={this.state.alleBilder}/>
       </div>
     );
