@@ -15,6 +15,7 @@ class App extends React.Component {
     this.leggTilBildePaState = this.leggTilBildePaState.bind(this);
     this.state = {
       alleBilder: [],
+      henterBilder: false,
     }
   }
 
@@ -23,10 +24,12 @@ class App extends React.Component {
   }
 
   hentBildeListe () {
+    this.setState({ henterBilder: true});
     fetch('https://min-bursdag.firebaseio.com/bilder.json').then(response => {
       if (response.ok) {
         response.json().then(bilder => {
           this.byggBildeliste(bilder);
+          this.setState({ henterBilder: false});
         });
       }
     }).catch(() => {
@@ -54,7 +57,7 @@ class App extends React.Component {
       <div>
         <h1>MATTA BLIR 30! </h1>
         <Filopplaster leggTilBildePaState={this.leggTilBildePaState}/>
-        <Bilder bilder={this.state.alleBilder}/>
+        <Bilder bilder={this.state.alleBilder} henterBilder={this.state.henterBilder}/>
       </div>
     );
   }
