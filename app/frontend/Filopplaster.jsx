@@ -1,6 +1,7 @@
 import React from 'react';
 import VisibleIf from './VisibleIf.jsx';
 import { isEmpty } from 'lodash';
+import moment from 'moment';
 
 class Filopplaster extends React.Component {
   constructor(props) {
@@ -29,6 +30,7 @@ class Filopplaster extends React.Component {
     event.preventDefault();
     const bildedata = document.getElementById("preview-image").src;
     const file = this.state.bildefil;
+    console.log(file);
 
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -37,6 +39,7 @@ class Filopplaster extends React.Component {
       data: bildedata,
       filnavn: file.name,
       storrelse: file.size,
+      datoLagret: moment(),
     };
 
     fetch('https://min-bursdag.firebaseio.com/bilder.json', {

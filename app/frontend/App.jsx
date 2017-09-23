@@ -1,9 +1,8 @@
 import React from 'react';
 import 'babel-polyfill';
 import { polyfill } from 'es6-promise';
-import { forIn } from 'lodash';
+import { forIn, isEmpty, orderBy } from 'lodash';
 
-import QrReader from 'react-qr-reader';
 import Filopplaster from './Filopplaster.jsx';
 import Bilder from './Bilder.jsx';
 polyfill();
@@ -40,12 +39,13 @@ class App extends React.Component {
     forIn(bilder, bilde => {
       alleBilder.push(bilde);
     });
-    this.setState({alleBilder: alleBilder});
+    const sortertListe = orderBy(alleBilder, 'datoLagret', 'asc');
+    this.setState({alleBilder: sortertListe});
   }
 
   leggTilBildePaState (bilde) {
     const alleBilder = this.state.alleBilder;
-    alleBilder.push(bilde);
+    alleBilder.unshift(bilde);
     this.setState({ alleBilder: alleBilder})
   }
 
