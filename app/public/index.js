@@ -2,6 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 require('./style/main.less');
 
-import App from './../frontend/App.jsx';
+import AppRouter from '../frontend/AppRouter.jsx';
 
-ReactDOM.render(<App/>, document.getElementById('app'));
+ReactDOM.render(<AppRouter/>, document.getElementById('app'));
