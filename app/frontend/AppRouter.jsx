@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import 'babel-polyfill';
 import { polyfill } from 'es6-promise';
 import { forIn, isEmpty, orderBy } from 'lodash';
@@ -11,12 +11,12 @@ import Bilder from './Bilder.jsx';
 class AppRouter extends React.Component {
   render () {
     return (
-      <HashRouter>
+      <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Hovedside} />
           <Route exact path="/bilder" component={Bilder} />
         </Switch>
-      </HashRouter>
+      </BrowserRouter>
     );
   }
 };

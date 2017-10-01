@@ -64,8 +64,7 @@ class Bilder extends React.Component {
       return <Loader/>;
     }
 
-    const
-    listUtBilde = () => {
+    const listUtBilde = () => {
       if (!isEmpty(this.state.alleBilder)) {
         console.log(this.state.alleBilder[0]);
         const bilde = this.state.alleBilder[this.state.valgtBildeindeksForVisning];
