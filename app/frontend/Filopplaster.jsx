@@ -30,7 +30,6 @@ class Filopplaster extends React.Component {
     event.preventDefault();
     const bildedata = document.getElementById("preview-image").src;
     const file = this.state.bildefil;
-    console.log(file);
 
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -69,7 +68,7 @@ class Filopplaster extends React.Component {
         <form className="filopplaster-form">
           <VisibleIf isVisible={filopplasterSkalVises}>
             <div>
-              <input id="filopplaster" type="file" multiple accept="image/*" capture="camera" onChange={this.lagreBilde}/>
+              <input id="filopplaster" type="file" multiple accept="image/*" capture="camera" onChange={this.settPreviewBilde}/>
               <label htmlFor="filopplaster">
                 <i className="fa fa-camera-retro" aria-hidden="true"/>
               </label>
