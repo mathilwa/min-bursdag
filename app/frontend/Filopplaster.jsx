@@ -47,7 +47,6 @@ class Filopplaster extends React.Component {
       headers: headers,
       body: JSON.stringify(bildeForLagring),
     });
-    this.props.leggTilBildePaState(bildeForLagring);
     this.slettBilde();
   }
 
@@ -70,7 +69,7 @@ class Filopplaster extends React.Component {
         <form className="filopplaster-form">
           <VisibleIf isVisible={filopplasterSkalVises}>
             <div>
-              <input id="filopplaster" type="file" multiple accept="image/*" capture="camera" onChange={this.settPreviewBilde}/>
+              <input id="filopplaster" type="file" multiple accept="image/*" capture="camera" onChange={this.lagreBilde}/>
               <label htmlFor="filopplaster">
                 <i className="fa fa-camera-retro" aria-hidden="true"/>
               </label>
