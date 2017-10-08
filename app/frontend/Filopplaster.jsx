@@ -65,11 +65,14 @@ class Filopplaster extends React.Component {
       return <Loader/>;
     }
 
+    const emojiTada = String.fromCodePoint(0x1F389);
+    const emojiV = String.fromCodePoint(0x270C);
+
     return (
         <form className="filopplaster-form">
           <VisibleIf isVisible={filopplasterSkalVises}>
             <div>
-              <p>Ta bilder og del dem med festen</p>
+              <p>Ta bilder og del dem med festen {emojiTada}</p>
               <input id="filopplaster" type="file" multiple accept="image/*" capture="camera" onChange={this.settPreviewBilde}/>
               <label htmlFor="filopplaster" className="ikon-container">
                 <div className="ikontekst-container"><div className="ikontekst">Ta bilde</div></div>
@@ -81,7 +84,7 @@ class Filopplaster extends React.Component {
           <VisibleIf isVisible={this.state.suksessmeldingVises}>
             <div className="suksessmelding">
               <i className="fa fa-check" aria-hidden="true"/>
-              <p>Bildet ble lastet opp. Kommer straks på en skjerm nær deg!</p>
+              <p>Bildet ble lastet opp. Kommer straks på en skjerm nær deg! {emojiV}</p>
             </div>
           </VisibleIf>
         </form>
