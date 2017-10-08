@@ -22,15 +22,12 @@ class Filopplaster extends React.Component {
       document.getElementById("preview-image").src = e.target.result;
       this.setState({bilde: e.target.result});
     };
-    this.setState({bildefil: document.getElementById('filopplaster').files[0]});
     reader.readAsDataURL(document.getElementById('filopplaster').files[0]);
+    const bildedata = document.getElementById('filopplaster').files[0];
+    setTimeout(() => this.lagreBilde(this.state.bilde, bildedata), 3000);
   }
 
-  lagreBilde (event) {
-    event.preventDefault();
-    const bildedata = document.getElementById("preview-image").src;
-    const file = this.state.bildefil;
-
+  lagreBilde (bildedata, file) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -41,6 +38,7 @@ class Filopplaster extends React.Component {
       datoLagret: moment(),
     };
 
+    console.log('noe bildegreier', bildeForLagring);
     fetch('https://min-bursdag.firebaseio.com/bilder.json', {
       method: 'post',
       headers: headers,
@@ -59,10 +57,8 @@ class Filopplaster extends React.Component {
   }
 
   render() {
-    const lagreknappSkalVises = !isEmpty(this.state.bilde);
     const filopplasterSkalVises = isEmpty(this.state.bilde);
-
-    const bildeStyle = isEmpty(this.state.bilde) ? {visibility: 'hidden'} : {visibility: 'visible'}
+    const bildeStyle = {visibility: 'hidden'};
 
     return (
         <form className="filopplaster-form">
@@ -71,18 +67,11 @@ class Filopplaster extends React.Component {
               <input id="filopplaster" type="file" multiple accept="image/*" capture="camera" onChange={this.settPreviewBilde}/>
               <label htmlFor="filopplaster" className="ikon-container">
                 <div className="ikontekst-container"><div className="ikontekst">Ta bilde</div></div>
-                <i className="fa fa-camera-retro" aria-hidden="true"></i>
+                <i className="fa fa-camera-retro" aria-hidden="true"/>
               </label>
             </div>
           </VisibleIf>
           <img id="preview-image" alt="your image" style={bildeStyle}/>
-          <VisibleIf isVisible={lagreknappSkalVises}>
-            <div>
-              <button className="knapp" onClick={(event) => this.lagreBilde(event)}>Lagre bilde</button>
-              <button className="knapp" onClick={(event) => this.slettBilde(event)}>Slett bilde</button>
-            </div>
-          </VisibleIf>
-
         </form>
     )
   }

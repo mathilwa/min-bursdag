@@ -72,7 +72,7 @@ class Bilder extends React.Component {
     };
 
     return (
-      <div className="alle-bilder">
+      <div className="bildevisning">
         {listUtBilde()}
       </div>
     );

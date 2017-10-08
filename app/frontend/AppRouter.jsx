@@ -7,6 +7,7 @@ polyfill();
 
 import Hovedside from './Hovedside.jsx';
 import Bilder from './Bilder.jsx';
+import AlleBilder from './AlleBilder.jsx';
 
 class AppRouter extends React.Component {
   render () {
@@ -15,6 +16,7 @@ class AppRouter extends React.Component {
         <Switch>
           <Route exact path="/" component={Hovedside} />
           <Route exact path="/bilder" component={Bilder} />
+          <Route exact path="/alle-bilder" component={AlleBilder} />
         </Switch>
       </BrowserRouter>
     );
