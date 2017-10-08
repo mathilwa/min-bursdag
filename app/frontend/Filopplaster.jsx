@@ -4,6 +4,16 @@ import Loader from './Loader.jsx';
 import { isEmpty } from 'lodash';
 import moment from 'moment';
 
+const suksessmeldinger = [
+  'Bildet ble lastet opp. Kommer straks på en skjerm nær deg! ' + String.fromCodePoint(0x270C),
+  'Rått! Takk for bildet ' + String.fromCodePoint(0x1F64F),
+  'Dette gikk jo bra! ' + String.fromCodePoint(0x1F44F),
+  'Bildet ble lastet opp! ' + String.fromCodePoint(0x1F446),
+  'Dette så jo ut til å funke det! Flaks ' + String.fromCodePoint(0x1F648),
+  'Jei! Takk!' + String.fromCodePoint(0x1F64B),
+  'Jada! Ditt fantastiske bidrag vil snart dukke opp på skjermen ' + String.fromCodePoint(0x1F60E),
+];
+
 class Filopplaster extends React.Component {
   constructor(props) {
     super(props);
@@ -14,7 +24,7 @@ class Filopplaster extends React.Component {
     this.state = {
       bilde: '',
       bildefil: {},
-      bildeLastesOpp: false,
+      bildeLastesOpp: true,
       suksessmeldingVises: false,
     }
   }
@@ -58,6 +68,11 @@ class Filopplaster extends React.Component {
     });
   }
 
+  velgSuksesstekst () {
+    const indeks = Math.floor(Math.random() * suksessmeldinger.length);
+    return suksessmeldinger[indeks];
+  }
+
   render() {
     const filopplasterSkalVises = !this.state.bildeLastesOpp && !this.state.suksessmeldingVises;
 
@@ -84,7 +99,7 @@ class Filopplaster extends React.Component {
           <VisibleIf isVisible={this.state.suksessmeldingVises}>
             <div className="suksessmelding">
               <i className="fa fa-check" aria-hidden="true"/>
-              <p>Bildet ble lastet opp. Kommer straks på en skjerm nær deg! {emojiV}</p>
+              <p>{this.velgSuksesstekst()}</p>
             </div>
           </VisibleIf>
         </form>
