@@ -10,7 +10,8 @@ class Hovedside extends React.Component {
   render () {
     return (
       <div>
-        <h1>MATTA BLIR 30! </h1>
+        <h1>MATTA BLIR <u>30</u>! </h1>
+        <p>Ta bilder og del dem med festen</p>
         <Filopplaster/>
       </div>
     );

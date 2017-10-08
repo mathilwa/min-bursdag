@@ -69,8 +69,9 @@ class Filopplaster extends React.Component {
           <VisibleIf isVisible={filopplasterSkalVises}>
             <div>
               <input id="filopplaster" type="file" multiple accept="image/*" capture="camera" onChange={this.settPreviewBilde}/>
-              <label htmlFor="filopplaster">
-                <i className="fa fa-camera-retro" aria-hidden="true"/>
+              <label htmlFor="filopplaster" className="ikon-container">
+                <div className="ikontekst-container"><div className="ikontekst">Ta bilde</div></div>
+                <i className="fa fa-camera-retro" aria-hidden="true"></i>
               </label>
             </div>
           </VisibleIf>
