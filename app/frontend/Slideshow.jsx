@@ -3,7 +3,7 @@ import { forIn, isEmpty, orderBy } from 'lodash';
 
 import Loader from './Loader.jsx';
 
-class Bilder extends React.Component {
+class Slideshow extends React.Component {
   constructor(props) {
     super(props);
     this.startIntervall = this.startIntervall.bind(this);
@@ -79,4 +79,4 @@ class Bilder extends React.Component {
   }
 };
 
-export default Bilder;
+export default Slideshow;

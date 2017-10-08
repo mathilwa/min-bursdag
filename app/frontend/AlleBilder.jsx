@@ -47,12 +47,16 @@ class AlleBilder extends React.Component {
     }
 
     const listUtBilder = () => {
-      return this.state.alleBilder.map((bilde, index) => <li key={index}><img className="bilde-mini" alt="your image" src={bilde.data}/></li>)
+      return this.state.alleBilder.map((bilde, index) => <div key={index}><img className="" alt="your image" src={bilde.data}/></div>)
     };
 
+    const overskrift = 'Alle bildene ' + String.fromCodePoint(0x270C)
     return (
       <div className="alle-bilder">
-        {listUtBilder()}
+        <h1>{overskrift}</h1>
+        <header>
+          {listUtBilder()}
+        </header>
       </div>
     );
   }
