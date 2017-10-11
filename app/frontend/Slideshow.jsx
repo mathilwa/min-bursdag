@@ -19,12 +19,13 @@ class Slideshow extends React.Component {
   }
 
   componentDidMount () {
+    document.getElementsByTagName('body')[0].style.backgroundColor = 'black';
     this.hentBildeListe();
   }
 
   hentBildeListe () {
     this.setState({ henterBilder: true});
-    fetch('https://min-bursdag.firebaseio.com/bilder.json').then(response => {
+    fetch('https://min-bursdag.firebaseio.com/test.json').then(response => {
       if (response.ok) {
         response.json().then(bilder => {
           this.byggBildeliste(bilder);

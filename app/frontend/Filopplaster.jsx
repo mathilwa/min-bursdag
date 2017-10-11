@@ -42,7 +42,7 @@ class Filopplaster extends React.Component {
 
   settStatusForOpplasting () {
     this.setState({bildeLastesOpp: true});
-    setTimeout(() => this.settTilbakeStatusForOpplastingOgVisSuksessmelding(), 2000);
+    setTimeout(() => this.settTilbakeStatusForOpplastingOgVisSuksessmelding(), 1500);
   }
 
   settTilbakeStatusForOpplastingOgVisSuksessmelding () {
@@ -61,7 +61,7 @@ class Filopplaster extends React.Component {
       datoLagret: moment(),
     };
 
-    fetch('https://min-bursdag.firebaseio.com/bilder.json', {
+    fetch('https://min-bursdag.firebaseio.com/test.json', {
       method: 'post',
       headers: headers,
       body: JSON.stringify(bildeForLagring),
