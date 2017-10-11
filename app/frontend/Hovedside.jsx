@@ -9,9 +9,11 @@ class Hovedside extends React.Component {
 
   render () {
     return (
-      <div>
-        <h1>MATTA BLIR <u>30</u>! </h1>
-        <Filopplaster/>
+      <div className="l-content">
+        <main>
+          <h1>MATTA BLIR <u>30</u>! </h1>
+          <Filopplaster/>
+        </main>
       </div>
     );
   }

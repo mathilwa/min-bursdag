@@ -7,10 +7,10 @@ import moment from 'moment';
 const suksessmeldinger = [
   'Bildet ble lastet opp. Kommer straks på en skjerm nær deg! ' + String.fromCodePoint(0x270C),
   'Rått! Takk for bildet ' + String.fromCodePoint(0x1F64F),
-  'Dette gikk jo bra! ' + String.fromCodePoint(0x1F44F),
+  'Dette gikk jo bra! ' + String.fromCodePoint(0x1F44F) + ' Se det på skjermen om litt',
   'Bildet ble lastet opp! ' + String.fromCodePoint(0x1F446),
   'Dette så jo ut til å funke det! Flaks ' + String.fromCodePoint(0x1F648),
-  'Jei! Takk!' + String.fromCodePoint(0x1F64B),
+  'Jei! Takk! ' + String.fromCodePoint(0x1F64B) + ' Det dukker straks opp på skjermen!',
   'Jada! Ditt fantastiske bidrag vil snart dukke opp på skjermen ' + String.fromCodePoint(0x1F60E),
 ];
 
@@ -25,7 +25,7 @@ class Filopplaster extends React.Component {
       bilde: '',
       bildefil: {},
       bildeLastesOpp: false,
-      suksessmeldingVises: false,
+      suksessmeldingVises: true,
     }
   }
 
@@ -81,7 +81,7 @@ class Filopplaster extends React.Component {
     }
 
     const emojiTada = String.fromCodePoint(0x1F389);
-    const emojiV = String.fromCodePoint(0x270C);
+    const imgSKalVisesIHTML = !this.state.suksessmeldingVises;
 
     return (
         <form className="filopplaster-form">
@@ -95,10 +95,11 @@ class Filopplaster extends React.Component {
               </label>
             </div>
           </VisibleIf>
-          <img id="preview-image" alt="your image" style={{visibility: 'hidden'}}/>
+          <VisibleIf isVisible={imgSKalVisesIHTML}>
+            <img id="preview-image" alt="your image" style={{visibility: 'hidden'}}/>
+          </VisibleIf>
           <VisibleIf isVisible={this.state.suksessmeldingVises}>
             <div className="suksessmelding">
-              <i className="fa fa-check" aria-hidden="true"/>
               <p>{this.velgSuksesstekst()}</p>
             </div>
           </VisibleIf>
