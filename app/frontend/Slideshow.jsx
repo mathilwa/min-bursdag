@@ -1,5 +1,5 @@
 import React from 'react';
-import { forIn, isEmpty, orderBy } from 'lodash';
+import { forIn, isEmpty, orderBy, some } from 'lodash';
 
 import Loader from './Loader.jsx';
 
@@ -20,16 +20,21 @@ class Slideshow extends React.Component {
 
   componentDidMount () {
     document.getElementsByTagName('body')[0].style.backgroundColor = 'black';
-    this.hentBildeListe();
+    this.startBildehenting();
   }
 
-  hentBildeListe () {
+  startBildehenting () {
+    this.hentBildeListeForsteGang();
+    setInterval(() => this.hentBildeListe(), 10000)
+  }
+
+  hentBildeListeForsteGang () {
     this.setState({ henterBilder: true});
     fetch('https://min-bursdag.firebaseio.com/test.json').then(response => {
       if (response.ok) {
         response.json().then(bilder => {
           this.byggBildeliste(bilder);
-          this.setState({ henterBilder: false});
+          this.setState({ henterBilder: false, valgtBildeindeksForVisning: 0});
           this.startIntervall();
         });
       }
@@ -38,13 +43,28 @@ class Slideshow extends React.Component {
     });
   }
 
+  hentBildeListe () {
+    fetch('https://min-bursdag.firebaseio.com/test.json').then(response => {
+      if (response.ok) {
+        response.json().then(bilder => {
+          this.byggBildeliste(bilder);
+        });
+      }
+    }).catch(() => {
+      console.log('Kunne ikke hente bilder');
+    });
+  }
+
   byggBildeliste (bilder) {
-    const alleBilder = [];
-    forIn(bilder, bilde => {
-      alleBilder.push(bilde);
+    const alleBilder = isEmpty(this.state.alleBilder) ? [] : this.state.alleBilder;
+    forIn(bilder, (bilde, key) => {
+      const bildeMedKey = Object.assign({}, bilde, { id: key });
+      if (!some(alleBilder, bilde => bilde.id === key)) {
+        alleBilder.push(bildeMedKey);
+      }
     });
     const sortertListe = orderBy(alleBilder, 'datoLagret', 'asc');
-    this.setState({alleBilder: sortertListe, valgtBildeindeksForVisning: 0});
+    this.setState({alleBilder: sortertListe});
   }
 
   startIntervall () {

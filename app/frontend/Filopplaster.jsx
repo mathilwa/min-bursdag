@@ -6,11 +6,11 @@ import moment from 'moment';
 
 const suksessmeldinger = [
   'Bildet ble lastet opp. Kommer straks på en skjerm nær deg! ' + String.fromCodePoint(0x270C),
-  'Rått! Takk for bildet ' + String.fromCodePoint(0x1F64F),
+  'Rått! Takk for bildet ' + String.fromCodePoint(0x1F64F) + ' Det dukker straks opp på skjermen!',
   'Dette gikk jo bra! ' + String.fromCodePoint(0x1F44F) + ' Se det på skjermen om litt',
   'Bildet ble lastet opp! ' + String.fromCodePoint(0x1F446),
   'Dette så jo ut til å funke det! Flaks ' + String.fromCodePoint(0x1F648),
-  'Jei! Takk! ' + String.fromCodePoint(0x1F64B) + ' Det dukker straks opp på skjermen!',
+  'Jei! Takk! ' + String.fromCodePoint(0x1F64B) + ' Bildet dukker straks opp på skjermen!',
   'Jada! Ditt fantastiske bidrag vil snart dukke opp på skjermen ' + String.fromCodePoint(0x1F60E),
 ];
 
