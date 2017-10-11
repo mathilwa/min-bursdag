@@ -25,7 +25,7 @@ class Filopplaster extends React.Component {
       bilde: '',
       bildefil: {},
       bildeLastesOpp: false,
-      suksessmeldingVises: true,
+      suksessmeldingVises: false,
     }
   }
 
