@@ -53,11 +53,7 @@ class Filopplaster extends React.Component {
         const hoyde = document.getElementById('preview-image').clientHeight;
 
         const kortesteSide = bredde > hoyde ? hoyde : bredde;
-        if (kortesteSide > 1700) {
-          nyUri = hentMindreDataUrl(this, bredde * 0.60, hoyde * 0.60);
-        } else {
-          nyUri = hentMindreDataUrl(this, bredde * 0.90, hoyde * 0.90);
-        }
+        nyUri = hentMindreDataUrl(this, bredde * 0.90, hoyde * 0.90);
 
         document.getElementById('preview-image').src = undefined;
         document.getElementById('preview-image-mini').src = nyUri;
