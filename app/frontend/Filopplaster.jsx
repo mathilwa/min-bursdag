@@ -52,8 +52,18 @@ class Filopplaster extends React.Component {
         const bredde = document.getElementById('preview-image').clientWidth;
         const hoyde = document.getElementById('preview-image').clientHeight;
 
-        nyUri = hentMindreDataUrl(this, bredde * 0.25, hoyde * 0.25);
+        const kortesteSide = bredde > hoyde ? hoyde : bredde;
+        console.log(bredde);
+        console.log(hoyde);
+        if (kortesteSide < 1000) {
+          nyUri = hentMindreDataUrl(this, bredde * 0.90, hoyde * 0.90);
+        } else if (kortesteSide >= 1000) {
+          nyUri = hentMindreDataUrl(this, bredde * 0.65, hoyde * 0.65);
+        } else {
+          nyUri = hentMindreDataUrl(this, bredde * 0.25, hoyde * 0.25);
+        }
 
+        document.getElementById('preview-image').src = undefined;
         document.getElementById('preview-image-mini').src = nyUri;
       };
 
@@ -82,6 +92,7 @@ class Filopplaster extends React.Component {
     headers.append('Content-Type', 'application/json');
 
     const minibildedata = document.getElementById('preview-image-mini').src;
+    document.getElementById('preview-image-mini').src = undefined;
     const id = bildedata.slice(69, 75) + (Math.random() * 100).toString();
 
     const minibildeForLagring = {
@@ -97,13 +108,13 @@ class Filopplaster extends React.Component {
       id: id,
     };
 
-    fetch('https://min-bursdag.firebaseio.com/test69.json', {
+    fetch('https://min-bursdag.firebaseio.com/snartbursdag.json', {
       method: 'post',
       headers: headers,
       body: JSON.stringify(bildeForLagring),
     });
 
-    fetch('https://min-bursdag.firebaseio.com/testmini.json', {
+    fetch('https://min-bursdag.firebaseio.com/testmini69.json', {
       method: 'post',
       headers: headers,
       body: JSON.stringify(minibildeForLagring),
@@ -146,10 +157,8 @@ class Filopplaster extends React.Component {
               </VisibleIf>
             </div>
           </VisibleIf>
-          <VisibleIf isVisible={imgSKalVisesIHTML}>
-            <img id="preview-image" alt="your image" style={{visibility: 'hidden'}}/>
-          </VisibleIf>
           <div>
+            <img id="preview-image" alt="your image" style={{visibility: 'hidden'}}/>
             <img id="preview-image-mini" alt="your mini-image" style={{visibility: 'hidden'}}/>
           </div>
         </form>

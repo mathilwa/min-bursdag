@@ -30,7 +30,7 @@ class Slideshow extends React.Component {
 
   hentBildeListeForsteGang () {
     this.setState({ henterBilder: true});
-    fetch('https://min-bursdag.firebaseio.com/test69.json').then(response => {
+    fetch('https://min-bursdag.firebaseio.com/testmini69.json').then(response => {
       if (response.ok) {
         response.json().then(bilder => {
           this.byggBildeliste(bilder);
@@ -44,7 +44,7 @@ class Slideshow extends React.Component {
   }
 
   hentBildeListe () {
-    fetch('https://min-bursdag.firebaseio.com/test69.json').then(response => {
+    fetch('https://min-bursdag.firebaseio.com/testmini69.json').then(response => {
       if (response.ok) {
         response.json().then(bilder => {
           this.byggBildeliste(bilder);
