@@ -30,7 +30,7 @@ class Slideshow extends React.Component {
 
   hentBildeListeForsteGang () {
     this.setState({ henterBilder: true});
-    fetch('https://min-bursdag.firebaseio.com/test.json').then(response => {
+    fetch('https://min-bursdag.firebaseio.com/test69.json').then(response => {
       if (response.ok) {
         response.json().then(bilder => {
           this.byggBildeliste(bilder);
@@ -44,7 +44,7 @@ class Slideshow extends React.Component {
   }
 
   hentBildeListe () {
-    fetch('https://min-bursdag.firebaseio.com/test.json').then(response => {
+    fetch('https://min-bursdag.firebaseio.com/test69.json').then(response => {
       if (response.ok) {
         response.json().then(bilder => {
           this.byggBildeliste(bilder);
@@ -57,10 +57,9 @@ class Slideshow extends React.Component {
 
   byggBildeliste (bilder) {
     const alleBilder = isEmpty(this.state.alleBilder) ? [] : this.state.alleBilder;
-    forIn(bilder, (bilde, key) => {
-      const bildeMedKey = Object.assign({}, bilde, { id: key });
-      if (!some(alleBilder, bilde => bilde.id === key)) {
-        alleBilder.push(bildeMedKey);
+    forIn(bilder, bilde => {
+      if (!some(alleBilder, b => b.id === bilde.id)) {
+        alleBilder.push(bilde);
       }
     });
     const sortertListe = orderBy(alleBilder, 'datoLagret', 'asc');

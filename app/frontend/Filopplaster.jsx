@@ -4,6 +4,17 @@ import Loader from './Loader.jsx';
 import { isEmpty } from 'lodash';
 import moment from 'moment';
 
+const hentMindreDataUrl = (img, width, height) => {
+  const canvas = document.createElement('canvas'),
+      ctx = canvas.getContext('2d');
+
+  canvas.width = width;
+  canvas.height = height;
+  ctx.drawImage(img, 0, 0, width, height);
+
+  return canvas.toDataURL();
+};
+
 const suksessmeldinger = [
   'Bildet ble lastet opp. Kommer straks på en skjerm nær deg! ' + String.fromCodePoint(0x270C),
   'Rått! Takk for bildet ' + String.fromCodePoint(0x1F64F) + ' Det dukker straks opp på skjermen!',
@@ -24,14 +35,29 @@ class Filopplaster extends React.Component {
     this.state = {
       bilde: '',
       bildefil: {},
+      minibilde: '',
       bildeLastesOpp: false,
       suksessmeldingVises: false,
     }
   }
 
   settPreviewBilde () {
+    let nyUri = '';
     const reader = new FileReader();
     reader.onload = (e) => {
+      document.getElementById('preview-image').src = e.target.result;
+      const img = new Image;
+
+      img.onload = function () {
+        const bredde = document.getElementById('preview-image').clientWidth;
+        const hoyde = document.getElementById('preview-image').clientHeight;
+
+        nyUri = hentMindreDataUrl(this, bredde * 0.25, hoyde * 0.25);
+
+        document.getElementById('preview-image-mini').src = nyUri;
+      };
+
+      img.src = e.target.result;
       this.setState({bilde: e.target.result});
     };
     reader.readAsDataURL(document.getElementById('filopplaster').files[0]);
@@ -39,6 +65,7 @@ class Filopplaster extends React.Component {
     this.settStatusForOpplasting();
     setTimeout(() => this.lagreBilde(this.state.bilde, bildedata), 3000);
   }
+
 
   settStatusForOpplasting () {
     this.setState({bildeLastesOpp: true});
@@ -54,17 +81,32 @@ class Filopplaster extends React.Component {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
+    const minibildedata = document.getElementById('preview-image-mini').src;
+    const id = bildedata.slice(69, 75) + (Math.random() * 100).toString();
+
+    const minibildeForLagring = {
+      data: minibildedata,
+      id: id,
+    };
+
     const bildeForLagring = {
       data: bildedata,
       filnavn: file.name,
       storrelse: file.size,
       datoLagret: moment(),
+      id: id,
     };
 
-    fetch('https://min-bursdag.firebaseio.com/test.json', {
+    fetch('https://min-bursdag.firebaseio.com/test69.json', {
       method: 'post',
       headers: headers,
       body: JSON.stringify(bildeForLagring),
+    });
+
+    fetch('https://min-bursdag.firebaseio.com/testmini.json', {
+      method: 'post',
+      headers: headers,
+      body: JSON.stringify(minibildeForLagring),
     });
   }
 
@@ -76,33 +118,40 @@ class Filopplaster extends React.Component {
   render() {
     const filopplasterSkalVises = !this.state.bildeLastesOpp && !this.state.suksessmeldingVises;
 
-    if(this.state.bildeLastesOpp) {
-      return <Loader/>;
-    }
 
     const emojiTada = String.fromCodePoint(0x1F389);
     const imgSKalVisesIHTML = !this.state.suksessmeldingVises;
 
     return (
         <form className="filopplaster-form">
-          <VisibleIf isVisible={filopplasterSkalVises}>
+          <VisibleIf isVisible={this.state.bildeLastesOpp}>
+            <Loader/>
+          </VisibleIf>
+          <VisibleIf isVisible={!this.state.bildeLastesOpp}>
             <div>
-              <p>Ta bilder og del dem med festen {emojiTada}</p>
-              <input id="filopplaster" type="file" multiple accept="image/*" capture="camera" onChange={this.settPreviewBilde}/>
-              <label htmlFor="filopplaster" className="ikon-container">
-                <div className="ikontekst-container"><div className="ikontekst">Ta bilde</div></div>
-                <i className="fa fa-camera-retro" aria-hidden="true"/>
-              </label>
+              <VisibleIf isVisible={filopplasterSkalVises}>
+                <div>
+                  <p>Ta bilder og del dem med festen {emojiTada}</p>
+                  <input id="filopplaster" type="file" multiple accept="image/*" capture="camera" onChange={this.settPreviewBilde}/>
+                  <label htmlFor="filopplaster" className="ikon-container">
+                    <div className="ikontekst-container"><div className="ikontekst">Ta bilde</div></div>
+                    <i className="fa fa-camera-retro" aria-hidden="true"/>
+                  </label>
+                </div>
+              </VisibleIf>
+              <VisibleIf isVisible={this.state.suksessmeldingVises}>
+                <div className="suksessmelding">
+                  <p>{this.velgSuksesstekst()}</p>
+                </div>
+              </VisibleIf>
             </div>
           </VisibleIf>
           <VisibleIf isVisible={imgSKalVisesIHTML}>
             <img id="preview-image" alt="your image" style={{visibility: 'hidden'}}/>
           </VisibleIf>
-          <VisibleIf isVisible={this.state.suksessmeldingVises}>
-            <div className="suksessmelding">
-              <p>{this.velgSuksesstekst()}</p>
-            </div>
-          </VisibleIf>
+          <div>
+            <img id="preview-image-mini" alt="your mini-image" style={{visibility: 'hidden'}}/>
+          </div>
         </form>
     )
   }

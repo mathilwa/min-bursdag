@@ -20,7 +20,7 @@ class AlleBilder extends React.Component {
 
   hentBildeListe () {
     this.setState({ henterBilder: true});
-    fetch('https://min-bursdag.firebaseio.com/test.json').then(response => {
+    fetch('https://min-bursdag.firebaseio.com/testmini.json').then(response => {
       if (response.ok) {
         response.json().then(bilder => {
           this.byggBildeliste(bilder);
@@ -50,7 +50,7 @@ class AlleBilder extends React.Component {
       return this.state.alleBilder.map((bilde, index) => <div key={index}><img className="" alt="your image" src={bilde.data}/></div>)
     };
 
-    const overskrift = 'Alle bildene ' + String.fromCodePoint(0x270C)
+    const overskrift = 'Alle bildene ' + String.fromCodePoint(0x270C);
     return (
       <div className="alle-bilder">
         <h1>{overskrift}</h1>
