@@ -87,7 +87,7 @@ class Slideshow extends React.Component {
     const listUtBilde = () => {
       if (!isEmpty(this.state.alleBilder)) {
         const bilde = this.state.alleBilder[this.state.valgtBildeindeksForVisning];
-        return <div><img className="bilde" alt="your image" src={bilde.data}/></div>;
+        return <img className="bilde" alt="your image" src={bilde.data}/>;
       }
     };
 
