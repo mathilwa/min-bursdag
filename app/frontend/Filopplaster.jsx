@@ -44,39 +44,58 @@ class Filopplaster extends React.Component {
 
   settPreviewBilde () {
     let nyUri = '';
+    let rotertUrl = '';
     const reader = new FileReader();
     reader.onload = (e) => {
       document.getElementById('preview-image').src = e.target.result;
+
+      fixOrientation(e.target.result, { image: true }, function (fixed, image) {
+        const img = new Image();
+        img.src = fixed;
+        document.getElementById('preview-image').src = fixed;
+        // document.body.appendChild(image);
+        console.log('ferdig her')
+      });
+
       const img = new Image;
-
       img.onload = function () {
-        const bredde = document.getElementById('preview-image').clientWidth;
-        const hoyde = document.getElementById('preview-image').clientHeight;
+        setTimeout(() => {
+          console.log('før her')
+          const bredde = document.getElementById('preview-image').clientWidth;
+          const hoyde = document.getElementById('preview-image').clientHeight;
 
-        const kortesteSide = bredde > hoyde ? hoyde : bredde;
-        nyUri = hentMindreDataUrl(this, bredde * 0.90, hoyde * 0.90);
+          const kortesteSide = bredde > hoyde ? hoyde : bredde;
+          nyUri = hentMindreDataUrl(this, bredde * 0.80, hoyde * 0.80);
 
-        document.getElementById('preview-image').src = undefined;
-        document.getElementById('preview-image-mini').src = nyUri;
+          fixOrientation(nyUri, { image: true }, function (fixed, image) {
+            const img = new Image();
+            img.src = fixed;
+            document.getElementById('preview-image-mini').src = fixed;
+            // document.body.appendChild(image);
+          });
+
+          document.getElementById('preview-image').src = undefined;
+          // document.getElementById('preview-image-mini').src = nyUri;
+        }, 2000)
+
       };
 
       img.src = e.target.result;
-      this.setState({bilde: e.target.result});
+      this.setState({bilde: rotertUrl});
 
-
-      const url = e.target.result;
-
-      fixOrientation(url, { image: true }, function (fixed, image) {
-        const img = new Image();
-        img.src = fixed;
-        document.body.appendChild(img);
-        document.body.appendChild(image);
-      });
+      //
+      // const url = e.target.result;
+      //
+      // fixOrientation(url, { image: true }, function (fixed, image) {
+      //   const img = new Image();
+      //   img.src = fixed;
+      //   document.getElementById('preview-image-container').appendChild(img);
+      // });
     };
     reader.readAsDataURL(document.getElementById('filopplaster').files[0]);
     const bildedata = document.getElementById('filopplaster').files[0];
     this.settStatusForOpplasting();
-    setTimeout(() => this.lagreBilde(this.state.bilde, bildedata), 3000);
+    setTimeout(() => this.lagreBilde(bildedata), 4000);
   }
 
 
@@ -90,11 +109,12 @@ class Filopplaster extends React.Component {
     setTimeout(() => this.setState({suksessmeldingVises: false}), 3000);
   }
 
-  lagreBilde (bildedata, file) {
+  lagreBilde (file) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
     const minibildedata = document.getElementById('preview-image-mini').src;
+    const bildedata = document.getElementById('preview-image').src;
     document.getElementById('preview-image-mini').src = undefined;
     const id = bildedata.slice(69, 75) + (Math.random() * 100).toString();
 
@@ -160,7 +180,7 @@ class Filopplaster extends React.Component {
               </VisibleIf>
             </div>
           </VisibleIf>
-          <div>
+          <div id="preview-image-container">
             <img id="preview-image" alt="your image" style={{visibility: 'hidden'}}/>
             <img id="preview-image-mini" alt="your mini-image" style={{visibility: 'hidden'}}/>
           </div>
