@@ -66,15 +66,15 @@ class Filopplaster extends React.Component {
           const kortesteSide = bredde > hoyde ? hoyde : bredde;
           nyUri = hentMindreDataUrl(this, bredde * 0.80, hoyde * 0.80);
 
-          fixOrientation(nyUri, { image: true }, function (fixed, image) {
-            const img = new Image();
-            img.src = fixed;
-            document.getElementById('preview-image-mini').src = fixed;
-            document.getElementById('preview-image-mini-container').appendChild(img);
-          });
+          // fixOrientation(nyUri, { image: true }, function (fixed, image) {
+          //   const img = new Image();
+          //   img.src = fixed;
+          //   document.getElementById('preview-image-mini').src = fixed;
+          //   document.getElementById('preview-image-mini-container').appendChild(img);
+          // });
 
           document.getElementById('preview-image').src = undefined;
-          // document.getElementById('preview-image-mini').src = nyUri;
+          document.getElementById('preview-image-mini').src = nyUri;
         }, 2000)
 
       };
@@ -102,8 +102,8 @@ class Filopplaster extends React.Component {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
-    const minibildedata = document.getElementById('preview-image-mini').src;
-    const bildedata = document.getElementById('preview-image').src;
+    const minibildedata = document.getElementById('preview-image-mini-container').getElementsByTagName('img')[0].src;
+    const bildedata = document.getElementById('preview-image-container').getElementsByTagName('img')[0].src;
     document.getElementById('preview-image-mini').src = undefined;
     const id = bildedata.slice(69, 75) + (Math.random() * 100).toString();
 

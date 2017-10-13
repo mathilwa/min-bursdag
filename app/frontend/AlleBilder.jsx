@@ -20,7 +20,7 @@ class AlleBilder extends React.Component {
 
   hentBildeListe () {
     this.setState({ henterBilder: true});
-    fetch('https://min-bursdag.firebaseio.com/testmini69.json').then(response => {
+    fetch('https://min-bursdag.firebaseio.com/snartbursdag.json').then(response => {
       if (response.ok) {
         response.json().then(bilder => {
           this.byggBildeliste(bilder);
