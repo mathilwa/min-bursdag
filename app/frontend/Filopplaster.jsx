@@ -53,7 +53,7 @@ class Filopplaster extends React.Component {
         const img = new Image();
         img.src = fixed;
         document.getElementById('preview-image').src = fixed;
-        // document.body.appendChild(image);
+        document.body.appendChild(img);
         console.log('ferdig her')
       });
 
@@ -71,7 +71,7 @@ class Filopplaster extends React.Component {
             const img = new Image();
             img.src = fixed;
             document.getElementById('preview-image-mini').src = fixed;
-            // document.body.appendChild(image);
+            document.body.appendChild(img);
           });
 
           document.getElementById('preview-image').src = undefined;
@@ -181,7 +181,7 @@ class Filopplaster extends React.Component {
             </div>
           </VisibleIf>
           <div id="preview-image-container">
-            <img id="preview-image" alt="your image" style={{visibility: 'hidden'}}/>
+            <img id="preview-image" alt="your image" />
             <img id="preview-image-mini" alt="your mini-image" style={{visibility: 'hidden'}}/>
           </div>
         </form>
