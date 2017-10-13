@@ -74,12 +74,13 @@ class Filopplaster extends React.Component {
           // });
 
           document.getElementById('preview-image').src = undefined;
-          document.getElementById('preview-image-mini').src = nyUri;
+          // document.getElementById('preview-image-mini').src = nyUri;
         }, 2000)
 
       };
 
       img.src = e.target.result;
+      document.getElementById('preview-image-mini-container').appendChild(img);
     };
     reader.readAsDataURL(document.getElementById('filopplaster').files[0]);
     const bildedata = document.getElementById('filopplaster').files[0];
@@ -104,6 +105,7 @@ class Filopplaster extends React.Component {
 
     const minibildedata = document.getElementById('preview-image-mini-container').getElementsByTagName('img')[0].src;
     const bildedata = document.getElementById('preview-image-container').getElementsByTagName('img')[0].src;
+    console.log(minibildedata);
     document.getElementById('preview-image-mini').src = undefined;
     const id = bildedata.slice(69, 75) + (Math.random() * 100).toString();
 
