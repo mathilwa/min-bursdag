@@ -66,13 +66,6 @@ class Filopplaster extends React.Component {
           const kortesteSide = bredde > hoyde ? hoyde : bredde;
           nyUri = hentMindreDataUrl(this, bredde * 0.80, hoyde * 0.80);
 
-          // fixOrientation(nyUri, { image: true }, function (fixed, image) {
-          //   const img = new Image();
-          //   img.src = fixed;
-          //   document.getElementById('preview-image-mini').src = fixed;
-          //   document.getElementById('preview-image-mini-container').appendChild(img);
-          // });
-
           document.getElementById('preview-image').src = undefined;
           // document.getElementById('preview-image-mini').src = nyUri;
         }, 2000)
@@ -105,9 +98,11 @@ class Filopplaster extends React.Component {
 
     const minibildedata = document.getElementById('preview-image-mini-container').getElementsByTagName('img')[0].src;
     const bildedata = document.getElementById('preview-image-container').getElementsByTagName('img')[0].src;
-    console.log(minibildedata);
     document.getElementById('preview-image-mini').src = undefined;
     const id = bildedata.slice(69, 75) + (Math.random() * 100).toString();
+    const imgtest = new Image();
+    imgtest.src = minibildedata;
+    document.getElementById('preview-image-test').appendChild(imgtest);
 
     const minibildeForLagring = {
       data: minibildedata,
@@ -177,6 +172,7 @@ class Filopplaster extends React.Component {
           </div>
           <div id="preview-image-container"></div>
           <div id="preview-image-mini-container"></div>
+          <div id="preview-image-test"></div>
         </form>
     )
   }
