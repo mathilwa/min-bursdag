@@ -26,6 +26,7 @@
     "moment": "^2.18.1",
     "node-image-resize": "0.0.2",
     "path": "^0.11.14",
+    "prop-types": "^15.6.0",
     "react": "^0.14.3",
     "react-addons-create-fragment": "^15.5.4",
     "react-dom": "^0.14.3",
