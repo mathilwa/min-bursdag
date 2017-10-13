@@ -10,6 +10,10 @@ import Slideshow from './Slideshow.jsx';
 import AlleBilderSide from './AlleBilderSide.jsx';
 
 class AppRouter extends React.Component {
+  componentDidMount () {
+    window.scrollTo(0,1);
+  }
+  
   render () {
     return (
       <BrowserRouter>
