@@ -1,8 +1,7 @@
 import React from 'react';
 import { forIn, isEmpty, orderBy } from 'lodash';
 
-import Loader from './Loader.jsx';
-import AlleBilder from "./AlleBilder";
+import AlleBilder from './AlleBilder.jsx';
 
 class AlleBilderSide extends React.Component {
   constructor(props) {
@@ -43,22 +42,11 @@ class AlleBilderSide extends React.Component {
   }
 
   render() {
-    if(this.state.henterBilder) {
-      return <Loader/>;
-    }
-
-    const listUtBilder = () => {
-      return this.state.alleBilder.map((bilde, index) => <div key={index}><img className="" alt="your image" src={bilde.data}/></div>)
-    };
-
-    const overskrift = 'Alle bildene ' + String.fromCodePoint(0x270C);
+    const overskrift = 'Bildene fra festen ' + String.fromCodePoint(0x270C);
     return (
       <div className="alle-bilder">
         <h1>{overskrift}</h1>
-        <AlleBilder byggBildeliste={this.byggBildeliste}
-                    alleBilder={this.state.alleBilder}
-                    henterBilder={this.state.henterBilder}
-        />
+        <AlleBilder alleBilder={this.state.alleBilder} henterBilder={this.state.henterBilder}/>
       </div>
     );
   }

@@ -44,7 +44,6 @@ class Filopplaster extends React.Component {
 
   settPreviewBilde () {
     let nyUri = '';
-    let rotertUrl = '';
     const reader = new FileReader();
     reader.onload = (e) => {
       document.getElementById('preview-image').src = e.target.result;
@@ -53,27 +52,23 @@ class Filopplaster extends React.Component {
         const img = new Image();
         img.src = fixed;
         document.getElementById('preview-image-container').appendChild(img);
-        console.log('ferdig her')
       });
 
       const img = new Image;
       img.onload = function () {
         setTimeout(() => {
-          console.log('før her');
           const bredde = document.getElementById('preview-image-container').getElementsByTagName('img')[0].clientWidth;
           const hoyde = document.getElementById('preview-image-container').getElementsByTagName('img')[0].clientHeight;
 
-          const kortesteSide = bredde > hoyde ? hoyde : bredde;
-          nyUri = hentMindreDataUrl(this, bredde * 0.80, hoyde * 0.80);
+          nyUri = hentMindreDataUrl(this, bredde * 0.70, hoyde * 0.70);
 
           document.getElementById('preview-image').src = undefined;
-          // document.getElementById('preview-image-mini').src = nyUri;
         }, 2000)
-
       };
 
       img.src = e.target.result;
       document.getElementById('preview-image-mini-container').appendChild(img);
+      this.setState({minibilde: img.src})
     };
     reader.readAsDataURL(document.getElementById('filopplaster').files[0]);
     const bildedata = document.getElementById('filopplaster').files[0];
@@ -100,9 +95,6 @@ class Filopplaster extends React.Component {
     const bildedata = document.getElementById('preview-image-container').getElementsByTagName('img')[0].src;
     document.getElementById('preview-image-mini').src = undefined;
     const id = bildedata.slice(69, 75) + (Math.random() * 100).toString();
-    const imgtest = new Image();
-    imgtest.src = minibildedata;
-    document.getElementById('preview-image-test').appendChild(imgtest);
 
     const minibildeForLagring = {
       data: minibildedata,
@@ -170,9 +162,8 @@ class Filopplaster extends React.Component {
             <img id="preview-image" alt="your image" style={{visibility: 'hidden'}}/>
             <img id="preview-image-mini" alt="your mini-image" style={{visibility: 'hidden'}}/>
           </div>
-          <div id="preview-image-container"></div>
-          <div id="preview-image-mini-container"></div>
-          <div id="preview-image-test"></div>
+          <div id="preview-image-container" style={{visibility: 'hidden'}}></div>
+          <div id="preview-image-mini-container" style={{visibility: 'hidden'}}></div>
         </form>
     )
   }
