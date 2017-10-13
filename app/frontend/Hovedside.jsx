@@ -9,6 +9,10 @@ class Hovedside extends React.Component {
     super(props);
   }
 
+  componentDidMount () {
+    window.scrollTo(0,1);
+  }
+
   render () {
     return (
       <div className="l-content">
