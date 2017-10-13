@@ -3,6 +3,7 @@ import VisibleIf from './VisibleIf.jsx';
 import Loader from './Loader.jsx';
 import { isEmpty } from 'lodash';
 import moment from 'moment';
+const fixOrientation = require('fix-orientation');
 
 const hentMindreDataUrl = (img, width, height) => {
   const canvas = document.createElement('canvas'),
@@ -61,6 +62,17 @@ class Filopplaster extends React.Component {
 
       img.src = e.target.result;
       this.setState({bilde: e.target.result});
+
+
+      const url = e.target.result;
+
+      fixOrientation(url, { image: true }, function (fixed, image) {
+        console.log('heihieh');
+        const img = new Image();
+        img.src = fixed;
+        document.body.appendChild(img);
+        document.body.appendChild(image);
+      });
     };
     reader.readAsDataURL(document.getElementById('filopplaster').files[0]);
     const bildedata = document.getElementById('filopplaster').files[0];
