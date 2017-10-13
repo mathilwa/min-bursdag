@@ -67,7 +67,6 @@ class Filopplaster extends React.Component {
       const url = e.target.result;
 
       fixOrientation(url, { image: true }, function (fixed, image) {
-        console.log('heihieh');
         const img = new Image();
         img.src = fixed;
         document.body.appendChild(img);
