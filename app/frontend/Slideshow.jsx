@@ -1,5 +1,6 @@
 import React from 'react';
 import { forIn, isEmpty, orderBy, some } from 'lodash';
+import Rotation from 'react-rotation'
 
 import Loader from './Loader.jsx';
 
@@ -93,7 +94,9 @@ class Slideshow extends React.Component {
 
     return (
       <div className="bildevisning">
-        {listUtBilde()}
+        <header>
+          {listUtBilde()}
+        </header>
       </div>
     );
   }

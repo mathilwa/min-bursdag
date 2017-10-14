@@ -60,7 +60,12 @@ class Filopplaster extends React.Component {
           const bredde = document.getElementById('preview-image-container').getElementsByTagName('img')[0].clientWidth;
           const hoyde = document.getElementById('preview-image-container').getElementsByTagName('img')[0].clientHeight;
 
-          nyUri = hentMindreDataUrl(this, bredde * 0.70, hoyde * 0.70);
+          nyUri = hentMindreDataUrl(this, bredde * 0.50, hoyde * 0.50);
+          fixOrientation(e.target.result, { image: true }, function (fixed, image) {
+            const img = new Image();
+            img.src = fixed;
+            document.getElementById('preview-image-2container').appendChild(img);
+          });
 
           document.getElementById('preview-image').src = undefined;
         }, 2000)
@@ -68,12 +73,12 @@ class Filopplaster extends React.Component {
 
       img.src = e.target.result;
       document.getElementById('preview-image-mini-container').appendChild(img);
-      this.setState({minibilde: img.src})
+      // this.setState({minibilde: img.src})
     };
     reader.readAsDataURL(document.getElementById('filopplaster').files[0]);
     const bildedata = document.getElementById('filopplaster').files[0];
     this.settStatusForOpplasting();
-    setTimeout(() => this.lagreBilde(bildedata), 4000);
+    setTimeout(() => this.lagreBilde(bildedata), 5000);
   }
 
 
@@ -163,7 +168,8 @@ class Filopplaster extends React.Component {
             <img id="preview-image-mini" alt="your mini-image" style={{visibility: 'hidden'}}/>
           </div>
           <div id="preview-image-container" style={{visibility: 'hidden'}}></div>
-          <div id="preview-image-mini-container" style={{visibility: 'hidden'}}></div>
+          <div id="preview-image-container2"></div>
+          <div id="preview-image-mini-container" ></div>
         </form>
     )
   }

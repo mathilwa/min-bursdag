@@ -1,6 +1,5 @@
 import React from 'react';
 import { forIn, isEmpty, orderBy } from 'lodash';
-const fixOrientation = require('fix-orientation');
 
 import Loader from './Loader.jsx';
 

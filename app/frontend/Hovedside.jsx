@@ -24,7 +24,6 @@ class Hovedside extends React.Component {
       hideAddressBar();
     }
     window.addEventListener("orientationchange", hideAddressBar );
-
   }
 
   render () {
