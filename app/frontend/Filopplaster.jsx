@@ -62,14 +62,19 @@ class Filopplaster extends React.Component {
           const hoyde = document.getElementById('preview-image-container').getElementsByTagName('img')[0].clientHeight;
 
           nyUri = hentMindreDataUrl(this, bredde * 0.50, hoyde * 0.50);
-          fixOrientation(nyUri, { image: true }, function (fixed, image) {
-            const img = new Image();
-            img.src = nyUri;
+          const img = new Image();
+          img.src = nyUri;
 
-            document.getElementById('preview-image-2container').appendChild(img);
+          document.getElementById('preview-image-2container').appendChild(img);
 
-
-          });
+          // fixOrientation(nyUri, { image: true }, function (fixed, image) {
+          //   const img = new Image();
+          //   img.src = nyUri;
+          //
+          //   document.getElementById('preview-image-2container').appendChild(img);
+          //
+          //
+          // });
 
           document.getElementById('preview-image').src = undefined;
         }, 1000)
