@@ -1,6 +1,5 @@
 import React from 'react';
 import { forIn, isEmpty, orderBy, some } from 'lodash';
-import Rotation from 'react-rotation'
 
 import Loader from './Loader.jsx';
 
