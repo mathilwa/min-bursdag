@@ -64,13 +64,17 @@ class Filopplaster extends React.Component {
           nyUri = hentMindreDataUrl(this, bredde * 0.50, hoyde * 0.50);
           fixOrientation(nyUri, { image: true }, function (fixed, image) {
             const img = new Image();
-            img.src = fixed;
+            img.src = nyUri;
+
             document.getElementById('preview-image-2container').appendChild(img);
+
+
           });
 
           document.getElementById('preview-image').src = undefined;
-        }, 2000)
+        }, 1000)
       };
+
 
       img.src = e.target.result;
       document.getElementById('preview-image-mini-container').appendChild(img);
@@ -78,12 +82,7 @@ class Filopplaster extends React.Component {
     };
     reader.readAsDataURL(document.getElementById('filopplaster').files[0]);
     const bildedata = document.getElementById('filopplaster').files[0];
-    getOrientedImage(bildedata, function(err,canvas) {
-      if (!err) {
-        document.body.appendChild(canvas);
-        console.log(canvas);
-      }
-    });
+
     this.settStatusForOpplasting();
     setTimeout(() => this.lagreBilde(bildedata), 5000);
   }
@@ -104,7 +103,7 @@ class Filopplaster extends React.Component {
     headers.append('Content-Type', 'application/json');
 
     const minibildedata = document.getElementById('preview-image-mini-container').getElementsByTagName('img')[0].src;
-    const semiminibildedata = document.getElementById('preview-image-2container').getElementsByTagName('img')[0].src;
+    const semiminibildedata = document.getElementById('preview-image-mini2').src;
     const bildedata = document.getElementById('preview-image-container').getElementsByTagName('img')[0].src;
     document.getElementById('preview-image-mini').src = undefined;
     const id = bildedata.slice(69, 75) + (Math.random() * 100).toString();
@@ -189,6 +188,7 @@ class Filopplaster extends React.Component {
           <div id="preview-image-container">HEIHEHI1</div>
           <div id="preview-image-2container">HEIHEI2</div>
           <div id="preview-image-mini-container">HEIHIHEI3</div>
+          <img id="preview-image-mini2" alt="your mini-image"/>
         </form>
     )
   }
