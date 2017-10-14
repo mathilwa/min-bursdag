@@ -61,7 +61,7 @@ class Filopplaster extends React.Component {
           const hoyde = document.getElementById('preview-image-container').getElementsByTagName('img')[0].clientHeight;
 
           nyUri = hentMindreDataUrl(this, bredde * 0.50, hoyde * 0.50);
-          fixOrientation(e.target.result, { image: true }, function (fixed, image) {
+          fixOrientation(nyUri, { image: true }, function (fixed, image) {
             const img = new Image();
             img.src = fixed;
             document.getElementById('preview-image-2container').appendChild(img);
@@ -168,7 +168,7 @@ class Filopplaster extends React.Component {
             <img id="preview-image-mini" alt="your mini-image" style={{visibility: 'hidden'}}/>
           </div>
           <div id="preview-image-container" style={{visibility: 'hidden'}}></div>
-          <div id="preview-image-container2"></div>
+          <div id="preview-image-2container"></div>
           <div id="preview-image-mini-container" ></div>
         </form>
     )
