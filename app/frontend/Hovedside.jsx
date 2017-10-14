@@ -4,14 +4,28 @@ import PropTypes from 'prop-types';
 import Filopplaster from './Filopplaster.jsx';
 import SeAlleBilderKnapp from './SeAlleBilderKnapp.jsx';
 
+// const hideAddressBar = () => {
+//   if(!window.location.hash) {
+//     if(document.height < window.outerHeight) {
+//       document.body.style.height = (window.outerHeight + 50) + 'px';
+//     }
+//
+//     setTimeout( function(){ window.scrollTo(0, 1); }, 50 );
+//   }
+// };
+
 class Hovedside extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  componentDidMount () {
-    window.scrollTo(0,1);
-  }
+  // componentDidMount () {
+  //   if (!window.pageYOffset) {
+  //     hideAddressBar();
+  //   }
+  //   window.addEventListener("orientationchange", hideAddressBar );
+  //
+  // }
 
   render () {
     return (
