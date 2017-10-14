@@ -92,9 +92,9 @@ class Slideshow extends React.Component {
     };
 
     return (
-      <div className="bildevisning">
-        {listUtBilde()}
-      </div>
+        <div className="bildevisning">
+          {listUtBilde()}
+        </div>
     );
   }
 };
