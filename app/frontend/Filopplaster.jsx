@@ -4,6 +4,7 @@ import Loader from './Loader.jsx';
 import { isEmpty } from 'lodash';
 import moment from 'moment';
 const fixOrientation = require('fix-orientation');
+const getOrientedImage = require('exif-orientation-image');
 
 const hentMindreDataUrl = (img, width, height) => {
   const canvas = document.createElement('canvas'),
@@ -77,6 +78,12 @@ class Filopplaster extends React.Component {
     };
     reader.readAsDataURL(document.getElementById('filopplaster').files[0]);
     const bildedata = document.getElementById('filopplaster').files[0];
+    getOrientedImage(bildedata, function(err,canvas) {
+      if (!err) {
+        document.body.appendChild(canvas);
+        console.log(canvas);
+      }
+    });
     this.settStatusForOpplasting();
     setTimeout(() => this.lagreBilde(bildedata), 5000);
   }
@@ -97,12 +104,18 @@ class Filopplaster extends React.Component {
     headers.append('Content-Type', 'application/json');
 
     const minibildedata = document.getElementById('preview-image-mini-container').getElementsByTagName('img')[0].src;
+    const semiminibildedata = document.getElementById('preview-image-2container').getElementsByTagName('img')[0].src;
     const bildedata = document.getElementById('preview-image-container').getElementsByTagName('img')[0].src;
     document.getElementById('preview-image-mini').src = undefined;
     const id = bildedata.slice(69, 75) + (Math.random() * 100).toString();
 
     const minibildeForLagring = {
       data: minibildedata,
+      id: id,
+    };
+
+    const semiminibildeForLagring = {
+      data: semiminibildedata,
       id: id,
     };
 
@@ -124,6 +137,12 @@ class Filopplaster extends React.Component {
       method: 'post',
       headers: headers,
       body: JSON.stringify(minibildeForLagring),
+    });
+
+    fetch('https://min-bursdag.firebaseio.com/semimini.json', {
+      method: 'post',
+      headers: headers,
+      body: JSON.stringify(semiminibildeForLagring),
     });
   }
 
@@ -167,9 +186,9 @@ class Filopplaster extends React.Component {
             <img id="preview-image" alt="your image" style={{visibility: 'hidden'}}/>
             <img id="preview-image-mini" alt="your mini-image" style={{visibility: 'hidden'}}/>
           </div>
-          <div id="preview-image-container" style={{visibility: 'hidden'}}></div>
-          <div id="preview-image-2container"></div>
-          <div id="preview-image-mini-container" ></div>
+          <div id="preview-image-container">HEIHEHI1</div>
+          <div id="preview-image-2container">HEIHEI2</div>
+          <div id="preview-image-mini-container">HEIHIHEI3</div>
         </form>
     )
   }
