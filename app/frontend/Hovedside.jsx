@@ -36,6 +36,12 @@ class Hovedside extends React.Component {
             <p>Du kan se alle bildene på mobilen også altså</p>
             <SeAlleBilderKnapp history={this.props.history}/>
           </div>
+          <div>
+            <img id="preview-image" alt="your image" style={{visibility: 'hidden'}}/>
+            <img id="preview-image-mini" alt="your mini-image" style={{visibility: 'hidden'}}/>
+          </div>
+          <div id="preview-image-container" style={{visibility: 'hidden'}}></div>
+          <div id="preview-image-mini-container" style={{visibility: 'hidden'}}></div>
         </main>
       </div>
     );

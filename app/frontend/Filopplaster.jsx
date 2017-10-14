@@ -158,12 +158,6 @@ class Filopplaster extends React.Component {
               </VisibleIf>
             </div>
           </VisibleIf>
-          <div>
-            <img id="preview-image" alt="your image" style={{visibility: 'hidden'}}/>
-            <img id="preview-image-mini" alt="your mini-image" style={{visibility: 'hidden'}}/>
-          </div>
-          <div id="preview-image-container" style={{visibility: 'hidden'}}></div>
-          <div id="preview-image-mini-container" style={{visibility: 'hidden'}}></div>
         </form>
     )
   }
